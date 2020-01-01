@@ -1,0 +1,68 @@
+%% SYSTLC: STM32 Nucleo Board TMF: grt_default_tmf MAKE: make_rtw \
+%% EXTMODE: ext_comm 
+%%
+%% 
+%% Abstract: STM32 Nucleo Board system target file.
+%%
+%% BSD 3-Clause License
+%% Copyright (c) 2019, Charles Dias
+%% All rights reserved.
+
+%selectfile NULL_FILE
+
+%assign TargetType = "RT"
+%assign Language   = "C"
+%assign GenRTModel = 1
+%assign _GRT_      = 1
+%assign TargetRegistMutexOp   = 1 
+%assign TargetRegistSynchroOp = 1
+
+%include "codegenentry.tlc"
+
+/%
+  BEGIN_RTW_OPTIONS
+
+  index = 1;
+  rtwoptions(index).prompt        = 'STM32CubeMX Options';
+  rtwoptions(index).type          = 'Category';
+  rtwoptions(index).enable        = 'on';
+  rtwoptions(index).default       = 2;
+  rtwoptions(index).popupstrings  = '';
+  rtwoptions(index).tlcvariable   = '';
+  rtwoptions(index).tooltip       = '';
+  rtwoptions(index).callback      = '';
+  rtwoptions(index).makevariable  = '';
+
+  index = index + 1;
+  rtwoptions(index).prompt        = 'Installation path of STM32CubeMx';
+  rtwoptions(index).type          = 'Edit';
+  rtwoptions(index).default       = '';
+  rtwoptions(index).tlcvariable   = 'stm32cubemx_install_path';
+  rtwoptions(index).enable        = 'on';
+  rtwoptions(index).tooltip       = ['installation full path for STM32CubeMx'];
+  rtwoptions(index).callback      = 'stm32cubemxinstallpath_callback(hDlg, hSrc, ''stm32cubemx_install_path'')';
+
+  index = index + 1;
+  rtwoptions(index).prompt        = 'Project SMT32CubeMX (.ioc)';
+  rtwoptions(index).type          = 'Edit';
+  rtwoptions(index).default       = '';
+  rtwoptions(index).tlcvariable   = 'project_full_path';
+  rtwoptions(index).makevariable  = '';
+  rtwoptions(index).enable        = '';
+  rtwoptions(index).tooltip       = ['Path and name to .ioc configuration file, e.g.:'...
+      ' ./project.ioc for pass the path of project.ioc save in the same'...
+      ' folder level that .slx Simulink file.'];
+  rtwoptions(index).callback      = '';
+
+  %----------------------------------------%
+  % Configure code generation settings %
+  %----------------------------------------%
+
+  rtwgensettings.BuildDirSuffix = '_grt_rtw';
+  %% Define suffix text for naming build folder here.
+  rtwgensettings.BuildDirSuffix = '_nucleo_rtw';
+  %% Callback compatibility declaration
+  rtwgensettings.Version = '1';
+
+  END_RTW_OPTIONS 
+ %/
